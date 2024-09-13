@@ -1,4 +1,3 @@
-import java.util.Objects;
 
 public class Person {
     String surname;
@@ -12,6 +11,6 @@ public class Person {
 }
 
     public boolean equals(Person p) {
-        return Objects.equals(this.surname, p.surname) && Objects.equals(this.name, p.name) && this.age == p.age;
+        return surname.equals(p.surname) &&  name.equals(p.name) && age == p.age;
     }
 }
