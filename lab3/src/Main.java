@@ -17,9 +17,16 @@ public class Main {
                 shapes[i+2] = new Triangle(colors[rand.nextInt(4)], rand.nextDouble(100), rand.nextDouble(100));
             }
         }
+        ShapeView view = new ShapeView();
+        ShapeController controller = new ShapeController(shapes, view);
+        controller.displayShapes();
+        controller.displayTotalArea();
+        controller.displayAreaByType(Circle.class);
+        controller.displayAreaByType(Triangle.class);
+        controller.displayAreaByType(Rectangle.class);
 
-//        ShapeView.displayShape(shapes);
-//        ShapeView.displayShape(shapes);
-        ShapeView.displayTotalAreaByType(shapes);
+
+
+
     }
 }
