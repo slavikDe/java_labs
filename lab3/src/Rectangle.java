@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 
 public class Rectangle extends Shape {
     private double width;

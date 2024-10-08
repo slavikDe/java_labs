@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class FindBestBinary {
-~
+
     public static void main(String[] args) {
         int input =readIntFromTerminal();
         ArrayList<Integer> list_binary = getArrayOfBest(input);
@@ -51,7 +51,7 @@ public class FindBestBinary {
         return count;
     }
 
-    public static boolean isPrime(int ~number) {
+    public static boolean isPrime(int number) {
         for(int i = 2; i < number; ++i) {
             if (number % i == 0) {
                 return false;
