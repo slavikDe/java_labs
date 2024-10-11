@@ -28,6 +28,10 @@ public class Main {
         } while (Main.oneMore(scanner));
 
         scanner.close();
+
+        System.out.println(
+                translator.translatePhrase("hello it is my apple")
+        );
     }
 
     public static String requestWord(Scanner scanner) {

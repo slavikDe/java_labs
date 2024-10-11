@@ -30,7 +30,7 @@ public class Translator {
 
     public void loadWordsFromJson(String filePath) {
         Gson gson = new Gson();
-        System.out.println("Loading words from: " + filePath); // Додано для діагностики
+        System.out.println("Loading words from: " + filePath);
         try (FileReader reader = new FileReader(filePath)) {
             Type type = new TypeToken<Map<String, String>>() {}.getType();
             Map<String, String> wordsFromJson = gson.fromJson(reader, type);
@@ -47,10 +47,25 @@ public class Translator {
         if(dictionary.containsKey(word)){
              return dictionary.get(word);
         }
-        return "No word translate found";
+        return "No word translate found for word: " + word + " ";
     }
+
     public boolean containsWord(String word){
         return dictionary.containsKey(word);
+    }
+
+    public String translatePhrase(String phrase) {
+        if (phrase.trim().isEmpty()) return "Input phrase is empty";
+
+        StringBuilder translatedPhrase = new StringBuilder();
+        String[] words = phrase.split("\\s+"); // Split by whitespace
+
+        for (String word : words) {
+            String translation = translateWord(word); // Translate each word
+            translatedPhrase.append(translation).append(" "); // Append translation with space
+        }
+
+        return translatedPhrase.toString().trim(); // Return the translated phrase without trailing space
     }
 
 }
