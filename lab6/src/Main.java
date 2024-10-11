@@ -2,35 +2,41 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         Translator translator = new Translator();
+        translator.loadWordsFromJson("src/words.json");
+        Scanner scanner = new Scanner(System.in);
+        String translatedWord = null;
 
-        translator.addWord("apple", "яблуко");
-        translator.addWord("hello", "привіт");
-        translator.addWord("world", "світ");
-        translator.addWord("world", "askdaskf");
-
-
-        System.out.println("Ви можете додати нові слова до словника.");
-        System.out.println("Для завершення додавання введіть 'q'.");
-        while (true) {
-            System.out.print("Введіть англійське слово: ");
-            String englishWord = scanner.nextLine();
-            if (englishWord.equalsIgnoreCase("q")) {
-                break;
+        do {
+            String word = Main.requestWord(scanner);
+            if (translator.containsWord(word.toLowerCase())) {
+                translatedWord = translator.translateWord(word.toLowerCase());
             }
-            System.out.print("Введіть український переклад: ");
-            String ukrainianWord = scanner.nextLine();
-            translator.addWord(englishWord, ukrainianWord);
-        }
+            else {
+                System.out.println("This word not found. Want add to dictionary? y/n");
+                String addWordResponse = scanner.next();
+                scanner.nextLine();
+                if(addWordResponse.equalsIgnoreCase("y")) {
+                    System.out.println("Enter translated word for " + word + " : ");
+                    translatedWord = scanner.next();
+                    translator.addWord(word, translatedWord);
+                }
+            }
 
-        System.out.println("Введіть фразу англійською для перекладу:");
-        String phrase = scanner.nextLine();
 
-        String translatedPhrase = translator.translatePhrase(phrase);
-        System.out.println("Переклад: " + translatedPhrase);
+            System.out.println(translatedWord != null ? translatedWord : "Word not found.");
+        } while (Main.oneMore(scanner));
 
         scanner.close();
+    }
 
+    public static String requestWord(Scanner scanner) {
+        System.out.println("Enter word for translate:");
+        return scanner.nextLine();
+    }
+    public static boolean oneMore(Scanner scanner) {
+        System.out.println("Type 'q' if u want exit!");
+        String word = scanner.nextLine();
+        return !word.equalsIgnoreCase("q") ;
     }
 }

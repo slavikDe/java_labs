@@ -1,3 +1,9 @@
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,21 +28,29 @@ public class Translator {
         }
     }
 
-    public String translatePhrase(String phrase){
-        if(phrase.trim().isEmpty()) return "Input phrase is empty";
-        String[] words = phrase.split(" ");
-        StringBuilder translatedPhrase = new StringBuilder();
-
-        for(String word : words){
-            word = word.toLowerCase();
-            if(dictionary.containsKey(word)){
-                translatedPhrase.append(dictionary.get(word)).append(" ");
-            }
-            else {
-                translatedPhrase.append(word).append(" ");
-            }
+    public void loadWordsFromJson(String filePath) {
+        Gson gson = new Gson();
+        System.out.println("Loading words from: " + filePath); // Додано для діагностики
+        try (FileReader reader = new FileReader(filePath)) {
+            Type type = new TypeToken<Map<String, String>>() {}.getType();
+            Map<String, String> wordsFromJson = gson.fromJson(reader, type);
+            wordsFromJson.forEach(this::addWord);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        return translatedPhrase.toString();
     }
+
+    public String translateWord(String word){
+        if(word.trim().isEmpty()) return "Input word is empty";
+        word = word.toLowerCase();
+
+        if(dictionary.containsKey(word)){
+             return dictionary.get(word);
+        }
+        return "No word translate found";
+    }
+    public boolean containsWord(String word){
+        return dictionary.containsKey(word);
+    }
+
 }
