@@ -9,10 +9,10 @@ import java.util.Map;
 
 
 public class Translator {
-    private Map<String,String> dictionary;
+    private final Map<String,String> dictionary;
 
     public Translator() {
-        dictionary = new HashMap<>();
+        dictionary = new HashMap<>(16, 1.5f);
     }
 
     public void addWord(String en, String uk){

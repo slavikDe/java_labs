@@ -29,9 +29,8 @@ public class Main {
 
         scanner.close();
 
-        System.out.println(
-                translator.translatePhrase("hello it is my apple")
-        );
+        System.out.println(translator.translatePhrase("hello it is my apple"));
+
     }
 
     public static String requestWord(Scanner scanner) {
